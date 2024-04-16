@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../Components/Navbar';
+import Footer from '../Components/Footer';
 
 function IndexPage() {
   const url = 'http://localhost:8080/';//import.meta.env.REACT_APP_FIXED_URL
@@ -146,96 +148,8 @@ const properties = async () => {
 
   return (
     <>
-    <header className="">
-    <div className="first-header">
-      <div className="container">
-        <div className="header-child">
-          <div className="row">
-            <div className="col-6">
-              </div>
-            <div className="col-6">
-              <div className="navbar" id="headDiv1">
-                <ul className="menu-list">
-                  <li>
-                    <a href="./Index.html" className="active">Home</a>
-                  </li>
-                  <li>
-                    <a href="./About.html">About</a>
-                  </li>
-                  <li>
-                    <a href="./Agents.html">Agents</a>
-                  </li>
-                  <li>
-                    <a href="./Blog.html">Blog</a>
-                  </li>
-                  <li>
-                    <a href="./Contact.html">Contact</a>
-                  </li>
-                </ul>
-                <div className="MobileMenuBar1 new-menubar">
-                  <span className="material-symbols-outlined cross  addToggler ">
-                    <i className="fa-solid fa-bars"></i>
-                  </span>
-                </div>
-                <div className="MobileNewMenuList">
-                  <ul className="menu-list">
-                    <li>
-                      <a href="./Index.html" className="active">Home</a>
-                    </li>
-                    <li>
-                      <a href="./About.html">About</a>
-                    </li>
-                    <li>
-                      <a href="./Agents.html">Agents</a>
-                    </li>
-                    <li>
-                      <a href="./Blog.html">Blog</a>
-                    </li>
-                    <li>
-                      <a href="./Contact.html">Contact</a>
-                    </li>
-                  </ul>
-                  <div className="MobileMenuBar removeToggler">
-                    <i className="fa-solid fa-xmark"></i>
-                  </div>
-                </div>
+      <Navbar />
 
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-    <div className="second-header">
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-6">
-            <div className="mainlogo header-img">
-              <a href="./Index.html">
-                <img src="../Images/Header-logo.png" alt="Header-logo"/>
-              </a>
-            </div>
-          </div>
-          <div className="col-sm-6">
-            <div className="pull-right">
-              <ul className="header-child-list">
-                <li>
-                  <a href="./Buy.html">BUY</a>
-                </li>
-                <li>
-                  <a href="./Buy.html">SALE</a>
-                </li>
-                <li>
-                  <a href="./Buy.html"> RENT</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
       <section className="banner">
         <div className="owl-carousel owl-theme" id="banner-carasoul">
           <div className="item">
@@ -944,77 +858,8 @@ const properties = async () => {
     </div>
   </section>
 
-      <section className="Footer">
-        <div className="footer-child">
-          <div className="container">
-            <div className="row gx-5">
-              <div className="col-md-3">
-                <h4 className="informatin-head">Information</h4>
-                <ul className="footer-link">
-                  <li>
-                    <a href="/About.html">About</a>
-                  </li>
-                  <li>
-                    <a href="/Agents.html">Agents</a>
-                  </li>
-                  <li>
-                    <a href="/Blog.html">Blog</a>
-                  </li>
-                  <li>
-                    <a href="/Contact.html">Contact</a>
-                  </li>
-                </ul>
-              </div>
-              <div className="col-md-3">
-                <h4 className="informatin-head mt-top">Newsletter</h4>
-                <p className="news-para">
-                  Get notified about the latest properties in our marketplace.
-                </p>
-                <input
-                  type="text"
-                  className="form-input"
-                  placeholder="Enter Your email address"
-                />
-                <div className="Notify-btn">Notify Me!</div>
-              </div>
-              <div className="col-md-3">
-                <h4 className="informatin-head mt-top">Follow Us</h4>
-                <div className="media-icon">
-                  <div className="icon">
-                  <a href="https://www.facebook.com/yourPageURL" target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                  </div>
-                  <div className="icon">
-                    <a href="https://www.instagram.com/yourProfile" target="_blank" rel="noopener noreferrer">
-                      <i className="fab fa-instagram"></i>
-                    </a>
-                  </div>
-              </div>
-              </div>
-              <div className="col-md-3">
-                <h4 className="informatin-head mt-top">Contact Us</h4>
-                <div className="contact-para">Bootstrap Realestate Inc.</div>
-                <div className="add">
-                  <i className="fa-solid fa-location-dot"></i>
-                  <div className="cnt">8290 Walk Street, Australia</div>
-                </div>
-                <div className="add">
-                  <i className="fa-solid fa-envelope"></i>
-                  <div className="cnt">hello@bootstrapreal.com</div>
-                </div>
-                <div className="add">
-                  <i className="fa-solid fa-phone"></i>
-                  <div className="cnt">(123) 456-7890</div>
-                </div>
-              </div>
-            </div>
-            <div className="copy-right">
-              © Copyright 2024 | Aarya Infosolutions
-            </div>
-          </div>
-        </div>
-      </section>
+            <Footer />
+
     </>
   );
 }
