@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import Navbar from "../Components/Navbar";
+import Footer from "../Components/Footer";
+import { getPropertyList1 } from "../../services/property.service";
+
 
 function IndexPage() {
-  const url = 'http://localhost:8080/';//import.meta.env.REACT_APP_FIXED_URL
-  const navigate=useNavigate()
-  const [imgSlider,setImgSlider]=useState([]);
-
+  
+  const [propertList, setPropertyListState] = useState([]);
   useEffect(() => {
     $(function() {
 
-      properties();
+      getRecommendedProperties();
 
       //############## Banner-Section ###############//
       $('#banner-carasoul').owlCarousel({
@@ -29,7 +31,7 @@ function IndexPage() {
         },
         autoplayTimeout: 5000, // Autoplay interval in milliseconds
         autoplayHoverPause: true, // Pause autoplay on mouse hover
-      })
+      });
       //############## Featured Properties ###############//
       $('#properties-sec').owlCarousel({
         loop: true,
@@ -55,7 +57,7 @@ function IndexPage() {
                 items: 5
             }
         }
-      })
+      });
 
       //############## About-Us ###############//
       $('#about-carasoul').owlCarousel({
@@ -75,32 +77,8 @@ function IndexPage() {
                 items: 1
             }
         }
-      })
+      });
 
-      //############## PropertiesDetails ###############//
-      $('.owl-carousel').owlCarousel({
-        loop: true,
-        margin: 10,
-        nav: true,
-        autoplay: true,
-        navText: [
-            "<i className='fa-solid fa-angle-left'></i>",
-            "<i className='fa-solid fa-angle-right'></i>",
-        ],
-        responsive: {
-            0: {
-                items: 1
-            },
-            600: {
-                items: 1
-            },
-            1000: {
-                items: 1
-            }
-        },
-        autoplayTimeout: 5000, // Autoplay interval in milliseconds
-        autoplayHoverPause: true, // Pause autoplay on mouse hover
-      })
       function moveCarousel(direction) {
         const carousel = document.querySelector('.carousel');
         const next = direction * carousel.offsetWidth;
@@ -114,128 +92,30 @@ function IndexPage() {
 
 
 
-const properties = async () => {
+async function getRecommendedProperties() {
   try {
-    const api = await fetch(`${url}api/admin/property/get`, {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${ import.meta.env.AUTHTOKEN}`
-        }
-    });
-    if (!api.ok) {
-      throw new Error(`Failed to fetch data: ${api.status} ${api.statusText}`);
-  }
-    const respo = await api.json()
-          if (respo.data.length>0) {
-            setImgSlider(respo.data)
+    const propertyList = await getPropertyList1();
+    const data = propertyList.data; // await res.json()
+    console.log(data);
 
-          } else {
-            if (Object.values(respo.data).length > 0) {
-              //toast.warn(Object.values(respo.data)[0][0]);
-            } else {
-              //toast.warn(respo.message);
-            }
-          }
-
-  }
-  catch (error) {
-    console.log(error)
+    if (data.length) {
+      console.log("recommended properties list", data);
+      setPropertyListState(data);
+    } else {
+      // if (Object.values(data.data).length > 0) {
+      //     toast.warn(Object.values(data.data)[0][0])
+      // } else {
+      //     toast.warn(data.message)
+      // }
+    }
+  } catch (error) {
+    console.log(error);
   }
 }
 
-
   return (
     <>
-    <header className="">
-    <div className="first-header">
-      <div className="container">
-        <div className="header-child">
-          <div className="row">
-            <div className="col-6">
-              </div>
-            <div className="col-6">
-              <div className="navbar" id="headDiv1">
-                <ul className="menu-list">
-                  <li>
-                    <a href="./Index.html" className="active">Home</a>
-                  </li>
-                  <li>
-                    <a href="./About.html">About</a>
-                  </li>
-                  <li>
-                    <a href="./Agents.html">Agents</a>
-                  </li>
-                  <li>
-                    <a href="./Blog.html">Blog</a>
-                  </li>
-                  <li>
-                    <a href="./Contact.html">Contact</a>
-                  </li>
-                </ul>
-                <div className="MobileMenuBar1 new-menubar">
-                  <span className="material-symbols-outlined cross  addToggler ">
-                    <i className="fa-solid fa-bars"></i>
-                  </span>
-                </div>
-                <div className="MobileNewMenuList">
-                  <ul className="menu-list">
-                    <li>
-                      <a href="./Index.html" className="active">Home</a>
-                    </li>
-                    <li>
-                      <a href="./About.html">About</a>
-                    </li>
-                    <li>
-                      <a href="./Agents.html">Agents</a>
-                    </li>
-                    <li>
-                      <a href="./Blog.html">Blog</a>
-                    </li>
-                    <li>
-                      <a href="./Contact.html">Contact</a>
-                    </li>
-                  </ul>
-                  <div className="MobileMenuBar removeToggler">
-                    <i className="fa-solid fa-xmark"></i>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-    <div className="second-header">
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-6">
-            <div className="mainlogo header-img">
-              <a href="./Index.html">
-                <img src="../Images/Header-logo.png" alt="Header-logo"/>
-              </a>
-            </div>
-          </div>
-          <div className="col-sm-6">
-            <div className="pull-right">
-              <ul className="header-child-list">
-                <li>
-                  <a href="./Buy.html">BUY</a>
-                </li>
-                <li>
-                  <a href="./Buy.html">SALE</a>
-                </li>
-                <li>
-                  <a href="./Buy.html"> RENT</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+    <Navbar />
       <section className="banner">
         <div className="owl-carousel owl-theme" id="banner-carasoul">
           <div className="item">
@@ -917,25 +797,31 @@ const properties = async () => {
           <div className="about-us-child">
             <h2 className="about-us-head mt-left">Recommended Properties</h2>
             <div className="recomend-properties">
-              <div className="owl-carousel owl-theme" id="about-carasoul">
-              {imgSlider.map(property => (
-                            <div key={property.id} className="item">
-                                <div className="row">
-                                    <div className="col-lg-4">
-                                        <img src="/Images/AboutUs1.jpg" alt="" className="w-100" />
-                                    </div>
-                                    <div className="col-lg-8">
-                                        <p className="Integer1">
-                                            <a href="#">{property.name}</a>
-                                        </p>
-                                        <div className="price">{property.price}</div>
-                                        <div className="more-details">
-                                            <a href="./PropertyDetail.html">More Details</a>
-                                        </div>
-                                    </div>
-                                </div>
+                <div className="owl-carousel owl-theme" id="about-carasoul">
+                  <div>
+                    {propertList.map((property) => (
+                      <div key={property.id} className="item">
+                        <div className="row">
+                          <div className="col-lg-4">
+                            <img
+                              src="/Images/AboutUs1.jpg"
+                              alt=""
+                              className="w-100"
+                            />
+                          </div>
+                          <div className="col-lg-8">
+                            <p className="Integer1">
+                              <a href="#">{property.name}</a>
+                            </p>
+                            <div className="price">{property.price}</div>
+                            <div className="more-details">
+                              <a href="./PropertyDetail.html">More Details</a>
                             </div>
-                        ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
               </div>
             </div>
           </div>
@@ -944,77 +830,7 @@ const properties = async () => {
     </div>
   </section>
 
-      <section className="Footer">
-        <div className="footer-child">
-          <div className="container">
-            <div className="row gx-5">
-              <div className="col-md-3">
-                <h4 className="informatin-head">Information</h4>
-                <ul className="footer-link">
-                  <li>
-                    <a href="/About.html">About</a>
-                  </li>
-                  <li>
-                    <a href="/Agents.html">Agents</a>
-                  </li>
-                  <li>
-                    <a href="/Blog.html">Blog</a>
-                  </li>
-                  <li>
-                    <a href="/Contact.html">Contact</a>
-                  </li>
-                </ul>
-              </div>
-              <div className="col-md-3">
-                <h4 className="informatin-head mt-top">Newsletter</h4>
-                <p className="news-para">
-                  Get notified about the latest properties in our marketplace.
-                </p>
-                <input
-                  type="text"
-                  className="form-input"
-                  placeholder="Enter Your email address"
-                />
-                <div className="Notify-btn">Notify Me!</div>
-              </div>
-              <div className="col-md-3">
-                <h4 className="informatin-head mt-top">Follow Us</h4>
-                <div className="media-icon">
-                  <div className="icon">
-                  <a href="https://www.facebook.com/yourPageURL" target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                  </div>
-                  <div className="icon">
-                    <a href="https://www.instagram.com/yourProfile" target="_blank" rel="noopener noreferrer">
-                      <i className="fab fa-instagram"></i>
-                    </a>
-                  </div>
-              </div>
-              </div>
-              <div className="col-md-3">
-                <h4 className="informatin-head mt-top">Contact Us</h4>
-                <div className="contact-para">Bootstrap Realestate Inc.</div>
-                <div className="add">
-                  <i className="fa-solid fa-location-dot"></i>
-                  <div className="cnt">8290 Walk Street, Australia</div>
-                </div>
-                <div className="add">
-                  <i className="fa-solid fa-envelope"></i>
-                  <div className="cnt">hello@bootstrapreal.com</div>
-                </div>
-                <div className="add">
-                  <i className="fa-solid fa-phone"></i>
-                  <div className="cnt">(123) 456-7890</div>
-                </div>
-              </div>
-            </div>
-            <div className="copy-right">
-              © Copyright 2024 | Aarya Infosolutions
-            </div>
-          </div>
-        </div>
-      </section>
+  <Footer />
     </>
   );
 }

@@ -46,6 +46,7 @@ import AdminWebusers from "../Pages/WebusersPages/AdminWebusers";
 import AdminAddWebuser from "../Pages/WebusersPages/AdminAddWebuser";
 import AdminUpdateWebuser from "../Pages/WebusersPages/AdminUpdateWebuser";
 import IndexPage from "./FrontendUser/Pages/IndexPage";
+import Blog from "./FrontendUser/Pages/Blog";
 // added comment
 
 function App() {
@@ -136,6 +137,7 @@ function App() {
             />
 
             <Route path="/user-index" element={<IndexPage />} />
+            <Route path="/Blog" element={<Blog />} />
           </>
         )}
 
