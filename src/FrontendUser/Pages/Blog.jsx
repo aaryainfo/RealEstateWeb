@@ -9,10 +9,7 @@ function Blog() {
     const [blogList, setBlogListState] = useState([]);
     useEffect(() => {
       $(function() {
-  
         getBlogList();
-  
-       
     });
   }, []);
   

@@ -46,7 +46,11 @@ import AdminWebusers from "../Pages/WebusersPages/AdminWebusers";
 import AdminAddWebuser from "../Pages/WebusersPages/AdminAddWebuser";
 import AdminUpdateWebuser from "../Pages/WebusersPages/AdminUpdateWebuser";
 import IndexPage from "./FrontendUser/Pages/IndexPage";
+import About from "./FrontendUser/Pages/About";
+import Agents from "./FrontendUser/Pages/Agents";
 import Blog from "./FrontendUser/Pages/Blog";
+import Contact from "./FrontendUser/Pages/Contact";
+
 // added comment
 
 function App() {
@@ -68,35 +72,7 @@ function App() {
           element={token ? <AdminDashboard /> : <Navigate to="/login" />}
         />
         <Route path="/login" element={<AdminLogin />} />
-        {/* <Route path='/' element={<Home />} />
-        <Route path='/aboutus' element={<AboutUs />} />
-        <Route path='/ready' element={<ReadyProducts />} />
-        <Route path='/artstuone' element={<ArtStudio />} />
-        <Route path='/artstutwo' element={<ArtstuTwo />} />
-        <Route path='/artstuthree' element={<ArtstuFour />} />
-        <Route path='/artstufour' element={<ArtstuThree />} />
-        <Route path='/artstufoura/:id' element={<ArtsFourA />} />
-        <Route path='/careerA' element={<CareerPageA />} />
-        <Route path='/careerB' element={<CareerPageB />} />
-        <Route path='/careerC' element={<CareerPageC />} />
-        <Route path='/empcorner' element={<EmpCorner />} />
-        <Route path='/contact' element={<ContactPage />} />
-
-
-        <Route path='/admin-login' element={<AdminLogin/>} />
-        <Route path='/admin-dashboard' element={<AdminDashboard/>} />
-        <Route path='/admin-products' element={<AdminProducts/>} />
-        <Route path='/admin-products/add' element={<AdminAddProduct/>} />
-        <Route path='/admin-products/update/:id' element={<AdminUpdateProduct/>} />
-
-        <Route path='/admin-projects' element={<AdminProjects/>} />
-        <Route path='/admin-projects/add' element={<AdminAddProject/>} />
-        <Route path='/admin-projects/update/:id' element={<AdminUpdateProject/>} />
-*/}
-        {/* {token ?? <Route path='/admin-blogs' element={<AdminBlogs/>} />}
-        <Route path='/admin-blogs/add' element={<AdminAddLinks/>} />
-        <Route path='/admin-blogs/update/:id' element={<AdminUpdateLinks/>} />  */}
-
+   
         {token && (
           <>
             <Route path="/admin-blogs" element={<AdminBlogs />} />
@@ -137,7 +113,10 @@ function App() {
             />
 
             <Route path="/user-index" element={<IndexPage />} />
+            <Route path="/About" element={<About />} />
+            <Route path="/Agents" element={<Agents />} />
             <Route path="/Blog" element={<Blog />} />
+            <Route path="/Contact" element={<Contact />} />
           </>
         )}
 
