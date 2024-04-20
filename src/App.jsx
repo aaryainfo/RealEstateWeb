@@ -50,6 +50,7 @@ import About from "./FrontendUser/Pages/About";
 import Agents from "./FrontendUser/Pages/Agents";
 import Blog from "./FrontendUser/Pages/Blog";
 import Contact from "./FrontendUser/Pages/Contact";
+import Buy from "./FrontendUser/Pages/Buy";
 
 // added comment
 
@@ -117,6 +118,7 @@ function App() {
             <Route path="/Agents" element={<Agents />} />
             <Route path="/Blog" element={<Blog />} />
             <Route path="/Contact" element={<Contact />} />
+            <Route path="/Buy" element={<Buy />} />
           </>
         )}
 

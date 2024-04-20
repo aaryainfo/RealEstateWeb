@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getPropertyList1 } from "../../services/property.service";
@@ -11,7 +11,7 @@ function IndexPage() {
 
   useEffect(()=> {
           getRecommendedProperties();
-
+          
   }, [])
 //   useEffect(() => {
     
@@ -302,7 +302,10 @@ async function getRecommendedProperties() {
                     </div>
                     <div className="col-xl-3 col-md-6">
                       <button className="find-btn">
-                        <a href="./Buy.html">Find Now</a>
+                        {/* <a href="./Buy.html">Find Now</a> */}
+                        <Link to={`/Buy`}>
+                              Find Now
+                            </Link>
                       </button>
                     </div>
                   </div>
