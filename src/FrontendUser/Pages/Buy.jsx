@@ -5,9 +5,11 @@ import "../Assets/CSS/Index.css";
 import "../Assets/CSS/About.css";
 import { getPropertyList1 } from '../../services/property.service';
 import { OptionsPropertyTypeEnum } from '../../../Pages/enums/property.enum';
+import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 
-function Buy() {
+function Buy(props) {
 
     const [propertList, setPropertyListState] = useState();
         const [propertListFiltered, setPropertyListFilteredState] = useState();
@@ -17,6 +19,9 @@ function Buy() {
       getRecommendedProperties();          
     }, []);
 
+      const location = useLocation();
+  const filterData = location.state;
+  console.log(" ->> filterData", filterData)
 
 
     async function getRecommendedProperties() {
@@ -47,12 +52,15 @@ function Buy() {
     setFilter({ ...filter, [name]: value });
   };
 
+  
+  
+
   // Function to filter properties based on selected criteria
   const filterProperties = () => {
     console.log("filter: ", filter)
     // Apply filtering logic here
     // For example:
-    const filteredProperties = propertList.filter(property => {
+    const filteredProperties = propertList?.filter(property => {
       return (
         (!filter.propertyType || property.propertyType === filter.propertyType) &&
         (!filter.property || property.property === filter.property) &&
@@ -62,6 +70,13 @@ function Buy() {
     setPropertyListFilteredState(filteredProperties)
     // Use the filteredProperties array for further processing (e.g., rendering)
   };
+
+  useEffect(()=> {
+    setFilter(filterData);
+    console.log('new Filter', filterData)
+    // handleInputChange
+    filterProperties()
+  }, [filterData, propertList, setPropertyListState])
 
   // Convert enum values to an array of objects for easy mapping
   const OptionsPropertyTypeArray = Object.keys(OptionsPropertyTypeEnum).map(
@@ -103,7 +118,7 @@ function Buy() {
             <div className="propertis-sec">
               <div className="row">
                 <div className="col-lg-5">
-                  <select className="form-input add-padding" name="property" onChange={handleInputChange}>
+                  <select className="form-input add-padding" name="property" value={filter?.property ?? ''} onChange={handleInputChange}>
                     <option value="Buy">Buy</option>
                     <option value="Rent">Rent</option>
                     <option value="Sale">Sale</option>
@@ -121,11 +136,8 @@ function Buy() {
                 </div>
 
                 <div className="col-12">
-                  <select className="form-input add-margin " name="propertyType" onChange={handleInputChange}>
-                    {/* <option value="1">Property Type</option>
-                    <option value="2">Apartment</option>
-                    <option value="3">Building</option>
-                    <option value="3">Office Space</option> */}
+                  <select className="form-input add-margin " name="propertyType" value={filter?.propertyType ?? ''} onChange={handleInputChange}>
+                   
                     {OptionsPropertyTypeArray.map((option) => (
                           <option key={option.value} value={option.value}>
                             {option.label}

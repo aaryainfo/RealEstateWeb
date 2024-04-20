@@ -3,21 +3,38 @@ import { Link, useNavigate } from 'react-router-dom';
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getPropertyList1 } from "../../services/property.service";
+import { OptionsPropertyTypeEnum } from '../../../Pages/enums/property.enum';
 
 
 function IndexPage() {
   
   const [propertList, setPropertyListState] = useState();
 
+  
+const [filter, setFilter] = useState({
+    propertyType: '',
+    property: '',
+    priceRange: ''
+  });
+
+  // Function to handle changes in form inputs
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFilter({ ...filter, [name]: value });
+  };
+
+   // Convert enum values to an array of objects for easy mapping
+  const OptionsPropertyTypeArray = Object.keys(OptionsPropertyTypeEnum).map(
+    (key) => ({
+      value: key,
+      label: OptionsPropertyTypeEnum[key],
+    })
+  );
+
   useEffect(()=> {
           getRecommendedProperties();
           
   }, [])
-//   useEffect(() => {
-    
-// }, [propertList, setPropertyListState]);
-
-
 
 async function getRecommendedProperties() {
   try {
@@ -116,6 +133,13 @@ async function getRecommendedProperties() {
     console.log(error);
   }
 }
+
+  const navigate = useNavigate();
+
+const handleClick = () => {
+    navigate("/Buy", { state: filter });
+  };
+
 
   return (
     <>
@@ -277,10 +301,10 @@ async function getRecommendedProperties() {
                   />
                   <div className="row">
                     <div className="col-xl-3 col-md-4">
-                      <select className="form-input">
-                        <option value="1">Buy</option>
-                        <option value="2">Rent</option>
-                        <option value="3">Sale</option>
+                      <select className="form-input" name="property" onChange={handleInputChange}>
+                        <option value="Buy">Buy</option>
+                        <option value="Rent">Rent</option>
+                        <option value="Sale">Sale</option>
                       </select>
                     </div>
                     <div className="col-xl-3 col-md-4">
@@ -293,19 +317,26 @@ async function getRecommendedProperties() {
                       </select>
                     </div>
                     <div className="col-xl-3 col-md-4">
-                      <select className="form-input">
-                        <option value="1">Property</option>
-                        <option value="2">Apartment</option>
-                        <option value="3">Building</option>
-                        <option value="4">Office Space</option>
+                      
+                      <select className="form-input add-margin " name="propertyType" onChange={handleInputChange}>
+                   
+                        {OptionsPropertyTypeArray.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+
                       </select>
                     </div>
                     <div className="col-xl-3 col-md-6">
-                      <button className="find-btn">
+                      <button className="find-btn" onClick={handleClick}>
                         {/* <a href="./Buy.html">Find Now</a> */}
-                        <Link to={`/Buy`}>
+                        {/* <Link to= {{
+                                pathname: '/Buy',
+                                state: { data: 'datwe' }
+                              }}> */}
                               Find Now
-                            </Link>
+                            {/* </Link> */}
                       </button>
                     </div>
                   </div>
