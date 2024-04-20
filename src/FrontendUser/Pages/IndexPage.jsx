@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../Components/Navbar';
-import Footer from '../Components/Footer';
+import Navbar from "../Components/Navbar";
+import Footer from "../Components/Footer";
+import { getPropertyList1 } from "../../services/property.service";
+
 
 function IndexPage() {
-  const url = 'http://localhost:8080/';//import.meta.env.REACT_APP_FIXED_URL
-  const navigate=useNavigate()
-  const [imgSlider,setImgSlider]=useState([]);
-
+  
+  const [propertList, setPropertyListState] = useState([]);
   useEffect(() => {
     $(function() {
 
-      properties();
+      getRecommendedProperties();
 
       //############## Banner-Section ###############//
       $('#banner-carasoul').owlCarousel({
@@ -31,7 +31,7 @@ function IndexPage() {
         },
         autoplayTimeout: 5000, // Autoplay interval in milliseconds
         autoplayHoverPause: true, // Pause autoplay on mouse hover
-      })
+      });
       //############## Featured Properties ###############//
       $('#properties-sec').owlCarousel({
         loop: true,
@@ -57,7 +57,7 @@ function IndexPage() {
                 items: 5
             }
         }
-      })
+      });
 
       //############## About-Us ###############//
       $('#about-carasoul').owlCarousel({
@@ -77,32 +77,8 @@ function IndexPage() {
                 items: 1
             }
         }
-      })
+      });
 
-      //############## PropertiesDetails ###############//
-      $('.owl-carousel').owlCarousel({
-        loop: true,
-        margin: 10,
-        nav: true,
-        autoplay: true,
-        navText: [
-            "<i className='fa-solid fa-angle-left'></i>",
-            "<i className='fa-solid fa-angle-right'></i>",
-        ],
-        responsive: {
-            0: {
-                items: 1
-            },
-            600: {
-                items: 1
-            },
-            1000: {
-                items: 1
-            }
-        },
-        autoplayTimeout: 5000, // Autoplay interval in milliseconds
-        autoplayHoverPause: true, // Pause autoplay on mouse hover
-      })
       function moveCarousel(direction) {
         const carousel = document.querySelector('.carousel');
         const next = direction * carousel.offsetWidth;
@@ -116,40 +92,30 @@ function IndexPage() {
 
 
 
-const properties = async () => {
+async function getRecommendedProperties() {
   try {
-    const api = await fetch(`${url}api/admin/property/get`, {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${ import.meta.env.AUTHTOKEN}`
-        }
-    });
-    if (!api.ok) {
-      throw new Error(`Failed to fetch data: ${api.status} ${api.statusText}`);
-  }
-    const respo = await api.json()
-          if (respo.data.length>0) {
-            setImgSlider(respo.data)
+    const propertyList = await getPropertyList1();
+    const data = propertyList.data; // await res.json()
+    console.log(data);
 
-          } else {
-            if (Object.values(respo.data).length > 0) {
-              //toast.warn(Object.values(respo.data)[0][0]);
-            } else {
-              //toast.warn(respo.message);
-            }
-          }
-
-  }
-  catch (error) {
-    console.log(error)
+    if (data.length) {
+      console.log("recommended properties list", data);
+      setPropertyListState(data);
+    } else {
+      // if (Object.values(data.data).length > 0) {
+      //     toast.warn(Object.values(data.data)[0][0])
+      // } else {
+      //     toast.warn(data.message)
+      // }
+    }
+  } catch (error) {
+    console.log(error);
   }
 }
 
-
   return (
     <>
-      <Navbar />
-
+    <Navbar />
       <section className="banner">
         <div className="owl-carousel owl-theme" id="banner-carasoul">
           <div className="item">
@@ -831,25 +797,31 @@ const properties = async () => {
           <div className="about-us-child">
             <h2 className="about-us-head mt-left">Recommended Properties</h2>
             <div className="recomend-properties">
-              <div className="owl-carousel owl-theme" id="about-carasoul">
-              {imgSlider.map(property => (
-                            <div key={property.id} className="item">
-                                <div className="row">
-                                    <div className="col-lg-4">
-                                        <img src="/Images/AboutUs1.jpg" alt="" className="w-100" />
-                                    </div>
-                                    <div className="col-lg-8">
-                                        <p className="Integer1">
-                                            <a href="#">{property.name}</a>
-                                        </p>
-                                        <div className="price">{property.price}</div>
-                                        <div className="more-details">
-                                            <a href="./PropertyDetail.html">More Details</a>
-                                        </div>
-                                    </div>
-                                </div>
+                <div className="owl-carousel owl-theme" id="about-carasoul">
+                  <div>
+                    {propertList.map((property) => (
+                      <div key={property.id} className="item">
+                        <div className="row">
+                          <div className="col-lg-4">
+                            <img
+                              src="/Images/AboutUs1.jpg"
+                              alt=""
+                              className="w-100"
+                            />
+                          </div>
+                          <div className="col-lg-8">
+                            <p className="Integer1">
+                              <a href="#">{property.name}</a>
+                            </p>
+                            <div className="price">{property.price}</div>
+                            <div className="more-details">
+                              <a href="./PropertyDetail.html">More Details</a>
                             </div>
-                        ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
               </div>
             </div>
           </div>
@@ -858,8 +830,7 @@ const properties = async () => {
     </div>
   </section>
 
-            <Footer />
-
+  <Footer />
     </>
   );
 }

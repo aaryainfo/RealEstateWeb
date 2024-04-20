@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
+
 
 function Footer() {
   //   const url = "http://localhost:8080/"; //import.meta.env.REACT_APP_FIXED_URL
-
+  const navigate=useNavigate()
+  
   return (
     <>
       <section className="Footer">
@@ -13,16 +16,16 @@ function Footer() {
                 <h4 className="informatin-head">Information</h4>
                 <ul className="footer-link">
                   <li>
-                    <a href="/About.html">About</a>
+                    <a href="#" onClick= {() => navigate(`/About`)}>About</a>
                   </li>
                   <li>
-                    <a href="/Agents.html">Agents</a>
+                    <a href="#" onClick= {() => navigate(`/Agents`)}>Agents</a> 
                   </li>
                   <li>
-                    <a href="/Blog.html">Blog</a>
+                    <a href="#" onClick= {() => navigate(`/Blog`)}>Blog</a>
                   </li>
                   <li>
-                    <a href="/Contact.html">Contact</a>
+                    <a href="#" onClick= {() => navigate(`/Contact`)}>Contact</a>
                   </li>
                 </ul>
               </div>
@@ -84,6 +87,17 @@ function Footer() {
           </div>
         </div>
       </section>
+      <div className="whatsup-btn-container">
+      <a
+        className="whatsup-btn"
+        href="https://wa.me/919860317030"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i className="fab fa-whatsapp"></i
+      ></a>
+      <span>Contact Us</span>
+    </div> 
     </>
   );
 }

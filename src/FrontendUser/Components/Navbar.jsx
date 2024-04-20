@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
+
 
 function Navbar() {
   //   const url = "http://localhost:8080/"; //import.meta.env.REACT_APP_FIXED_URL
+  const navigate=useNavigate()
 
   return (
     <>
@@ -15,21 +18,19 @@ function Navbar() {
                   <div className="navbar" id="headDiv1">
                     <ul className="menu-list">
                       <li>
-                        <a href="./Index.html" className="active">
-                          Home
-                        </a>
+                      <a href="#" onClick= {() => navigate(`/user-index`)}>Home</a>
                       </li>
                       <li>
-                        <a href="./About.html">About</a>
+                      <a href="#" onClick= {() => navigate(`/About`)}>About</a>
                       </li>
                       <li>
-                        <a href="./Agents.html">Agents</a>
+                      <a href="#" onClick= {() => navigate(`/Agents`)}>Agents</a> 
                       </li>
                       <li>
-                        <a href="./Blog.html">Blog</a>
+                        <a href="#" onClick= {() => navigate(`/Blog`)}>Blog</a>
                       </li>
                       <li>
-                        <a href="./Contact.html">Contact</a>
+                        <a href="#" onClick= {() => navigate(`/Contact`)}>Contact</a>
                       </li>
                     </ul>
                     <div className="MobileMenuBar1 new-menubar">
@@ -39,23 +40,21 @@ function Navbar() {
                     </div>
                     <div className="MobileNewMenuList">
                       <ul className="menu-list">
-                        <li>
-                          <a href="./Index.html" className="active">
-                            Home
-                          </a>
-                        </li>
-                        <li>
-                          <a href="./About.html">About</a>
-                        </li>
-                        <li>
-                          <a href="./Agents.html">Agents</a>
-                        </li>
-                        <li>
-                          <a href="./Blog.html">Blog</a>
-                        </li>
-                        <li>
-                          <a href="./Contact.html">Contact</a>
-                        </li>
+                      <li>
+                      <a href="#" onClick= {() => navigate(`/user-index`)}>Home</a>
+                      </li>
+                      <li>
+                      <a href="#" onClick= {() => navigate(`/About`)}>About</a>
+                      </li>
+                      <li>
+                      <a href="#" onClick= {() => navigate(`/Agents`)}>Agents</a> 
+                      </li>
+                      <li>
+                        <a href="#" onClick= {() => navigate(`/Blog`)}>Blog</a>
+                      </li>
+                      <li>
+                        <a href="#" onClick= {() => navigate(`/Contact`)}>Contact</a>
+                      </li>
                       </ul>
                       <div className="MobileMenuBar removeToggler">
                         <i className="fa-solid fa-xmark"></i>
