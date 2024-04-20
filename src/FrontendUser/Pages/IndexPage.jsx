@@ -7,11 +7,28 @@ import { getPropertyList1 } from "../../services/property.service";
 
 function IndexPage() {
   
-  const [propertList, setPropertyListState] = useState([]);
-  useEffect(() => {
-    $(function() {
+  const [propertList, setPropertyListState] = useState();
 
-      getRecommendedProperties();
+  useEffect(()=> {
+          getRecommendedProperties();
+
+  }, [])
+//   useEffect(() => {
+    
+// }, [propertList, setPropertyListState]);
+
+
+
+async function getRecommendedProperties() {
+  try {
+    const propertyList = await getPropertyList1();
+    const data = propertyList.data; // await res.json()
+    console.log(data);
+
+    if (data.length) {
+      console.log("recommended properties list", data);
+      setPropertyListState(data);
+      $(function() {
 
       //############## Banner-Section ###############//
       $('#banner-carasoul').owlCarousel({
@@ -88,19 +105,6 @@ function IndexPage() {
         });
       }
   });
-}, []);
-
-
-
-async function getRecommendedProperties() {
-  try {
-    const propertyList = await getPropertyList1();
-    const data = propertyList.data; // await res.json()
-    console.log(data);
-
-    if (data.length) {
-      console.log("recommended properties list", data);
-      setPropertyListState(data);
     } else {
       // if (Object.values(data.data).length > 0) {
       //     toast.warn(Object.values(data.data)[0][0])
@@ -382,8 +386,8 @@ async function getRecommendedProperties() {
             </button>
           </div>
           <div className="properties-sec">
-            <div className="owl-carousel owl-theme" id="properties-sec">
-              <div className="item">
+            {/* <div className="owl-carousel owl-theme" id="properties-sec"> */}
+              {/* <div className="item">
                 <div className="properties">
                   <div className="image-holder1">
                     <img
@@ -431,263 +435,25 @@ async function getRecommendedProperties() {
                     <a href="./PropertyDetail.html">View Details</a>
                   </button>
                 </div>
-              </div>
-              <div className="item">
-                <div className="properties">
-                  <div className="image-holder1">
-                    <img
-                      src="/Images/Propeties-img2.jpg"
-                      alt=""
-                      className="w-100"
-                    />
-                  </div>
-                  <h4 className="royal-head">
-                    <a href="#">Royal Inn</a>
-                  </h4>
-                  <p className="price">Price: $234,900</p>
-                  <div className="listing-detail">
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Bed Room"
-                    >
-                      5<div className="tool">Bed Room</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Living Room"
-                    >
-                      2<div className="tool">Living Room</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Parking"
-                    >
-                      2<div className="tool">Parking</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Kitchen"
-                    >
-                      1<div className="tool">Kitchen</div>
-                    </span>
-                  </div>
-                  <button className="view-detail">
-                    <a href="./BlogDetail.html">View Details</a>
-                  </button>
-                </div>
-              </div>
-              <div className="item">
-                <div className="properties">
-                  <div className="image-holder1">
-                    <img
-                      src="/Images/Propeties-img3.jpg"
-                      alt=""
-                      className="w-100"
-                    />
-                    <div className="status status-color">Sold</div>
-                  </div>
-                  <h4 className="royal-head">
-                    <a href="#">Royal Inn</a>
-                  </h4>
-                  <p className="price">Price: $234,900</p>
-                  <div className="listing-detail">
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Bed Room"
-                    >
-                      5<div className="tool">Bed Room</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Living Room"
-                    >
-                      2<div className="tool">Living Room</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Parking"
-                    >
-                      2<div className="tool">Parking</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Kitchen"
-                    >
-                      1<div className="tool">Kitchen</div>
-                    </span>
-                  </div>
-                  <button className="view-detail">
-                    <a href="./PropertyDetail.html">View Details</a>
-                  </button>
-                </div>
-              </div>
-              <div className="item">
-                <div className="properties">
-                  <div className="image-holder1">
-                    <img
-                      src="/Images/Propeties-img4.jpg"
-                      alt=""
-                      className="w-100"
-                    />
-                  </div>
-                  <h4 className="royal-head">
-                    <a href="#">Royal Inn</a>
-                  </h4>
-                  <p className="price">Price: $234,900</p>
-                  <div className="listing-detail">
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Bed Room"
-                    >
-                      5<div className="tool">Bed Room</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Living Room"
-                    >
-                      2<div className="tool">Living Room</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Parking"
-                    >
-                      2<div className="tool">Parking</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Kitchen"
-                    >
-                      1<div className="tool">Kitchen</div>
-                    </span>
-                  </div>
-                  <button className="view-detail">
-                    <a href="./PropertyDetail.html">View Details</a>
-                  </button>
-                </div>
-              </div>
-              <div className="item">
+              </div> */}
+                                            <div className="owl-carousel owl-theme" id="properties-sec">
+
+              {!!propertList && propertList?.map((property) => (
+
+                      <div key={property.id} className="item">
                 <div className="properties">
                   <div className="image-holder1">
                     <img
                       src="/Images/Propeties-img1.jpg"
-                      alt=""
-                      className="w-100"
-                    />
-                    <div className="status status-color">Sold</div>
-                  </div>
-                  <h4 className="royal-head">
-                    <a href="#">Royal Inn</a>
-                  </h4>
-                  <p className="price">Price: $234,900</p>
-                  <div className="listing-detail">
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Bed Room"
-                    >
-                      5<div className="tool">Bed Room</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Living Room"
-                    >
-                      2<div className="tool">Living Room</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Parking"
-                    >
-                      2<div className="tool">Parking</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Kitchen"
-                    >
-                      1<div className="tool">Kitchen</div>
-                    </span>
-                  </div>
-                  <button className="view-detail">
-                    <a href="./PropertyDetail.html">View Details</a>
-                  </button>
-                </div>
-              </div>
-              <div className="item">
-                <div className="properties">
-                  <div className="image-holder1">
-                    <img
-                      src="/Images/Propeties-img2.jpg"
-                      alt=""
-                      className="w-100"
-                    />
-                  </div>
-                  <h4 className="royal-head">
-                    <a href="#">Royal Inn</a>
-                  </h4>
-                  <p className="price">Price: $234,900</p>
-                  <div className="listing-detail">
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Bed Room"
-                    >
-                      5<div className="tool">Bed Room</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Living Room"
-                    >
-                      2<div className="tool">Living Room</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Parking"
-                    >
-                      2<div className="tool">Parking</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Kitchen"
-                    >
-                      1<div className="tool">Kitchen</div>
-                    </span>
-                  </div>
-                  <button className="view-detail">
-                    <a href="./PropertyDetail.html">View Details</a>
-                  </button>
-                </div>
-              </div>
-              <div className="item">
-                <div className="properties">
-                  <div className="image-holder1">
-                    <img
-                      src="/Images/Propeties-img1.jpg"
-                      alt=""
+                      alt="jio"
                       className="w-100"
                     />
                     <div className="status">New</div>
                   </div>
                   <h4 className="royal-head">
-                    <a href="#">Royal Inn</a>
+                    <a href="#">{property.name}</a>
                   </h4>
-                  <p className="price">Price: $234,900</p>
+                  <p className="price">Price: ${property.price}</p>
                   <div className="listing-detail">
                     <span
                       data-toggle="tooltip"
@@ -723,55 +489,11 @@ async function getRecommendedProperties() {
                   </button>
                 </div>
               </div>
-              <div className="item">
-                <div className="properties">
-                  <div className="image-holder1">
-                    <img
-                      src="/Images/Propeties-img2.jpg"
-                      alt=""
-                      className="w-100"
-                    />
-                  </div>
-                  <h4 className="royal-head">
-                    <a href="#">Royal Inn</a>
-                  </h4>
-                  <p className="price">Price: $234,900</p>
-                  <div className="listing-detail">
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Bed Room"
-                    >
-                      5<div className="tool">Bed Room</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Living Room"
-                    >
-                      2<div className="tool">Living Room</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Parking"
-                    >
-                      2<div className="tool">Parking</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Kitchen"
-                    >
-                      1<div className="tool">Kitchen</div>
-                    </span>
-                  </div>
-                  <button className="view-detail">
-                    <a href="./BlogDetail.html">View Details</a>
-                  </button>
-                </div>
-              </div>
-            </div>
+                    ))}
+                    
+                                  </div>
+
+
           </div>
         </div>
       </section>
@@ -798,8 +520,7 @@ async function getRecommendedProperties() {
             <h2 className="about-us-head mt-left">Recommended Properties</h2>
             <div className="recomend-properties">
                 <div className="owl-carousel owl-theme" id="about-carasoul">
-                  <div>
-                    {propertList.map((property) => (
+                    {!!propertList && propertList.map((property) => (
                       <div key={property.id} className="item">
                         <div className="row">
                           <div className="col-lg-4">
@@ -821,7 +542,6 @@ async function getRecommendedProperties() {
                         </div>
                       </div>
                     ))}
-                  </div>
               </div>
             </div>
           </div>
