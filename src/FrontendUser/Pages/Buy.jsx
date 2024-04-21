@@ -42,7 +42,7 @@ function Buy(props) {
 
     const [filter, setFilter] = useState({
     propertyType: '',
-    property: '',
+    property: 'Buy',
     priceRange: ''
   });
 
@@ -52,19 +52,26 @@ function Buy(props) {
     setFilter({ ...filter, [name]: value });
   };
 
-  
-  
+const isPriceInRange = (price, priceRange) => {
+  if (!priceRange) return true; // If no price range selected, return true
+
+  if(priceRange === '$300,000+') return price >= '300000';
+
+  const [min, max] = priceRange.split(' - ');
+  const minPrice = parseInt(min.replace('$', '').replace(',', ''));
+  const maxPrice = max === "$300,000+" ? Infinity : parseInt(max.replace('$', '').replace(',', ''));
+  return price >= minPrice && price <= maxPrice;
+};
 
   // Function to filter properties based on selected criteria
   const filterProperties = () => {
-    console.log("filter: ", filter)
     // Apply filtering logic here
     // For example:
     const filteredProperties = propertList?.filter(property => {
       return (
-        (!filter.propertyType || property.propertyType === filter.propertyType) &&
-        (!filter.property || property.property === filter.property) &&
-        (!filter.priceRange || property.priceRange === filter.priceRange)
+        (!filter?.propertyType || property.propertyType === (filter?.propertyType ?? '')) &&
+        (!filter?.property || property.property === (filter?.property ?? '')) &&
+        (!filter?.priceRange || isPriceInRange(property.price, (filter?.priceRange ?? '')))
       );
     });
     setPropertyListFilteredState(filteredProperties)
@@ -118,19 +125,19 @@ function Buy(props) {
             <div className="propertis-sec">
               <div className="row">
                 <div className="col-lg-5">
-                  <select className="form-input add-padding" name="property" value={filter?.property ?? ''} onChange={handleInputChange}>
+                  <select className="form-input add-padding" name="property" value={filter?.property ?? 'Buy'} onChange={handleInputChange}>
                     <option value="Buy">Buy</option>
                     <option value="Rent">Rent</option>
                     <option value="Sale">Sale</option>
                   </select>
                 </div>
                 <div className="col-lg-7">
-                  <select className="form-input " name="priceRange" onChange={handleInputChange}>
+                  <select className="form-input " name="priceRange" value={filter?.priceRange ?? ''} onChange={handleInputChange}>
                     <option value="1">Price</option>
-                    <option value="2">$150,000 - $200,000</option>
-                    <option value="3">$200,000 - $250,000</option>
-                    <option value="3">$250,000 - $300,000</option>
-                    <option value="4">$300,000 - above</option>
+                    <option value="$150,000 - $200,000">$150,000 - $200,000</option>
+                    <option value="$200,000 - $250,000">$200,000 - $250,000</option>
+                    <option value="$250,000 - $300,000">$250,000 - $300,000</option>
+                    <option value="$300,000+">$300,000 - above</option>
                   </select>
 
                 </div>
