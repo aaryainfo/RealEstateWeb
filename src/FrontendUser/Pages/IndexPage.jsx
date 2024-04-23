@@ -308,12 +308,12 @@ const handleClick = () => {
                       </select>
                     </div>
                     <div className="col-xl-3 col-md-4">
-                      <select className="form-input">
+                      <select className="form-input" name="priceRange" onChange={handleInputChange}>
                         <option value="1">Price</option>
-                        <option value="2">$150,000 - $200,000</option>
-                        <option value="3">$200,000 - $250,000</option>
-                        <option value="3">$250,000 - $300,000</option>
-                        <option value="4">$300,000 - above</option>
+                        <option value="$150,000 - $200,000">$150,000 - $200,000</option>
+                        <option value="$200,000 - $250,000">$200,000 - $250,000</option>
+                        <option value="$250,000 - $300,000">$250,000 - $300,000</option>
+                        <option value="$300,000+">$300,000 - above</option>
                       </select>
                     </div>
                     <div className="col-xl-3 col-md-4">
