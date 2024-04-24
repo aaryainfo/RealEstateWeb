@@ -1,31 +1,10 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import { Navigate, Route, Routes } from "react-router-dom";
-import Home from "../Pages/Home";
-import AboutUs from "../Pages/AboutUs";
-import ReadyProducts from "../Pages/ReadyProducts";
-import ArtStudio from "../Pages/ArtStudio";
-import ArtstuTwo from "../Pages/ArtstuTwo";
-import ArtstuThree from "../Pages/ArtstuThree";
-import ArtstuFour from "../Pages/ArtstuFour";
-import ArtsFourA from "../Pages/ArtsFourA";
-import CareerPageA from "../Pages/CareerPageA";
-import CareerPageB from "../Pages/CareerPageB";
-import CareerPageC from "../Pages/CareerPageC";
-import EmpCorner from "../Pages/EmpCorner";
-import ContactPage from "../Pages/ContactPage";
 import AdminLogin from "../Pages/Adminlogin";
 import AdminDashboard from "../Pages/AdminDashboard";
-import AdminProducts from "../Pages/AdminProducts";
-import AdminAddProduct from "../Pages/AdminAddProduct";
 import { ToastContainer } from "react-toastify";
-import AdminUpdateProduct from "../Pages/AdminUpdateProduct";
-import AdminAddProject from "../Pages/AdminAddProject";
-import AdminProjects from "../Pages/AdminProjects";
-import AdminUpdateProject from "../Pages/AdminUpdateProject";
 
 // Blogs
 import AdminBlogs from "../Pages/BlogsPages/AdminBlogs";
@@ -51,7 +30,8 @@ import Agents from "./FrontendUser/Pages/Agents";
 import Blog from "./FrontendUser/Pages/Blog";
 import Contact from "./FrontendUser/Pages/Contact";
 import Buy from "./FrontendUser/Pages/Buy";
-
+import Register from "./FrontendUser/Pages/Register";
+import PropertyDetail from "./FrontendUser/Pages/PropertyDetail";
 // added comment
 
 function App() {
@@ -119,6 +99,8 @@ function App() {
             <Route path="/Blog" element={<Blog />} />
             <Route path="/Contact" element={<Contact />} />
             <Route path="/Buy" element={<Buy />} />
+            <Route path="/Register" element={<Register />} />
+            <Route path="/PropertyDetail" element={<PropertyDetail />} />
           </>
         )}
 

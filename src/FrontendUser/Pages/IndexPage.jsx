@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getPropertyList1 } from "../../services/property.service";
@@ -146,7 +146,10 @@ const handleClick = () => {
     <Navbar />
       <section className="banner">
         <div className="owl-carousel owl-theme" id="banner-carasoul">
-          <div className="item">
+          
+        {!!propertList && propertList?.map((property) => (
+
+        <div key={property.id} className="item">
             <div id="slider" className="sl-slider-wrapper">
               <div className="sl-slider">
                 <div>
@@ -156,32 +159,29 @@ const handleClick = () => {
                     data-slice1-rotation="-25"
                     data-slice2-rotation="-25"
                     data-slice1-scale="2"
-                    data-slice2-scale="2"
-                  >
+                    data-slice2-scale="2">
                     <div className="banner-img bg-img">
                       <div className="container">
                         <div className="row">
                           <div className="col-lg-6">
                             <div className="banner-content">
                               <h2 className="banner-head">
-                                22 Bed Rooms and 1 Dinning Room Aparment on Sale
+                              {property.name}
                               </h2>
                               <div className="locate">
                                 <div className="icon">
                                   <i className="fa-solid fa-location-dot"></i>
                                 </div>
                                 <div className="add">
-                                  1890 Syndey, Australia
+                                {property.address}
                                 </div>
                               </div>
                               <p className="banner-cnt">
-                                Until he extends the circle of his compassion to
-                                all living things, man will not himself find
-                                peace.
+                              {property.details}
                               </p>
                               <div className="banner-btn">
                                 <button className="dolor-btn">
-                                  $ 20,000,000
+                                $ {property.price}
                                 </button>
                               </div>
                             </div>
@@ -195,99 +195,8 @@ const handleClick = () => {
               </div>
             </div>
           </div>
-          <div className="item">
-            <div className="slider"></div>
-            <div className="banner-img bg-img banner-img1">
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-6">
-                    <div className="banner-content">
-                      <h2 className="banner-head">
-                        2 Bed Rooms and 1 Dinning Room Aparment on Sale
-                      </h2>
-                      <div className="locate">
-                        <div className="icon">
-                          <i className="fa-solid fa-location-dot"></i>
-                        </div>
-                        <div className="add">1890 Syndey, Australia</div>
-                      </div>
-                      <p className="banner-cnt">
-                        Until he extends the circle of his compassion to all
-                        living things, man will not himself find peace.
-                      </p>
-                      <div className="banner-btn">
-                        <button className="dolor-btn">$ 20,000,000</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-6"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="item">
-            <div className="slider"></div>
-            <div className="banner-img banner-img2">
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-6">
-                    <div className="banner-content">
-                      <h2 className="banner-head">
-                        2 Bed Rooms and 1 Dinning Room Aparment on Sale
-                      </h2>
-                      <div className="locate">
-                        <div className="icon">
-                          <i className="fa-solid fa-location-dot"></i>
-                        </div>
-                        <div className="add">1890 Syndey, Australia</div>
-                      </div>
-                      <p className="banner-cnt">
-                        Until he extends the circle of his compassion to all
-                        living things, man will not himself find peace.
-                      </p>
-                      <div className="banner-btn">
-                        <button className="dolor-btn">$ 20,000,000</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-6"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="item">
-            <div className="slider"></div>
-            <div className="banner-img banner-img3">
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-6">
-                    <div className="banner-content">
-                      <h2 className="banner-head">
-                        2 Bed Rooms and 1 Dinning Room Aparment on Sale
-                      </h2>
-                      <div className="locate">
-                        <div className="icon">
-                          <i className="fa-solid fa-location-dot"></i>
-                        </div>
-                        <div className="add">1890 Syndey, Australia</div>
-                      </div>
-                      <p className="banner-cnt">
-                        Until he extends the circle of his compassion to all
-                        living things, man will not himself find peace.
-                      </p>
-                      <div className="banner-btn">
-                        <button className="dolor-btn">$ 20,000,000</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-6"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* </div> */}
-        {/* </div> */}
+          ))}
+      </div>
         <div className="banner-search">
           <div className="banner-search-back">
             <div className="container">
@@ -394,7 +303,7 @@ const handleClick = () => {
                                   properties deal happening around.
                                 </div>
                                 <button className="join-btn">
-                                  <a href="./Register.html">Join Now</a>
+                                  <a href="#" onClick= {() => navigate(`/Register`)}>Join Now</a>
                                 </button>
                               </div>
                             </div>
@@ -409,8 +318,6 @@ const handleClick = () => {
           </div>
         </div>
       </section>
-      {/* </div> */}
-
       <section className="featured-properties">
         <div className="container">
           <div className="featured-head">
@@ -420,61 +327,10 @@ const handleClick = () => {
             </button>
           </div>
           <div className="properties-sec">
-            {/* <div className="owl-carousel owl-theme" id="properties-sec"> */}
-              {/* <div className="item">
-                <div className="properties">
-                  <div className="image-holder1">
-                    <img
-                      src="/Images/Propeties-img1.jpg"
-                      alt="jio"
-                      className="w-100"
-                    />
-                    <div className="status">New</div>
-                  </div>
-                  <h4 className="royal-head">
-                    <a href="#">Royal Inn</a>
-                  </h4>
-                  <p className="price">Price: $234,900</p>
-                  <div className="listing-detail">
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Bed Room"
-                    >
-                      5<div className="tool">Bed Room</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Living Room"
-                    >
-                      2<div className="tool">Living Room</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Parking"
-                    >
-                      2<div className="tool">Parking</div>
-                    </span>
-                    <span
-                      data-toggle="tooltip"
-                      data-placement="bottom"
-                      data-original-title="Kitchen"
-                    >
-                      1<div className="tool">Kitchen</div>
-                    </span>
-                  </div>
-                  <button className="view-detail">
-                    <a href="./PropertyDetail.html">View Details</a>
-                  </button>
-                </div>
-              </div> */}
-                                            <div className="owl-carousel owl-theme" id="properties-sec">
+            <div className="owl-carousel owl-theme" id="properties-sec">
+            {!!propertList && propertList?.map((property) => (
 
-              {!!propertList && propertList?.map((property) => (
-
-                      <div key={property.id} className="item">
+              <div key={property.id} className="item">
                 <div className="properties">
                   <div className="image-holder1">
                     <img
@@ -519,15 +375,13 @@ const handleClick = () => {
                     </span>
                   </div>
                   <button className="view-detail">
-                    <a href="./PropertyDetail.html">View Details</a>
+                  <a href="#" onClick= {() => navigate(`/PropertyDetail`)}>View Details</a>
                   </button>
                 </div>
               </div>
                     ))}
                     
-                                  </div>
-
-
+            </div>
           </div>
         </div>
       </section>
@@ -570,7 +424,7 @@ const handleClick = () => {
                             </p>
                             <div className="price">{property.price}</div>
                             <div className="more-details">
-                              <a href="./PropertyDetail.html">More Details</a>
+                            <a href="#" onClick= {() => navigate(`/PropertyDetail`)}>More Details</a>
                             </div>
                           </div>
                         </div>
