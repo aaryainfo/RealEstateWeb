@@ -11,7 +11,8 @@ import { createWebuserList } from "../../services/webuser.service";
 
 function Register() {
     const navigate = useNavigate();
-   
+    
+
   // add Register states
     const [fullName, setUserName] = useState('')
     const [userEmail, setUserMail] = useState('')
@@ -37,11 +38,12 @@ function Register() {
         const value = pair[1];
         payload[key] = value;
         }
-        console.log(payload);    
+        //console.log(payload);    
             const customerList = await createWebuserList(payload);
             const respo = await customerList.data;
-            if (data) {
-                toast.success("Registered Successfully");
+            console.log(customerList.message);
+            if (respo) {
+                toast.success(customerList.message);
                 localStorage.setItem('UserToken', respo.data.token)
                 localStorage.setItem('UserEmailorMobile', userEmail)
                 //navigate("/admin-customers");

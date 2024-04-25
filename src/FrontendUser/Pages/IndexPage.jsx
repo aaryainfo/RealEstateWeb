@@ -5,7 +5,6 @@ import Footer from "../Components/Footer";
 import { getPropertyList1 } from "../../services/property.service";
 import { OptionsPropertyTypeEnum } from '../../../Pages/enums/property.enum';
 
-
 function IndexPage() {
   
   const [propertList, setPropertyListState] = useState();
@@ -80,7 +79,6 @@ async function getRecommendedProperties() {
             576: {
                 items: 1,
             },
-
             768: {
                 items: 2,
             },
@@ -328,9 +326,9 @@ const handleClick = () => {
           </div>
           <div className="properties-sec">
             <div className="owl-carousel owl-theme" id="properties-sec">
-            {!!propertList && propertList?.map((property) => (
+            {!!propertList && propertList?.map((item) => (
 
-              <div key={property.id} className="item">
+              <div key={item.id} className="item">
                 <div className="properties">
                   <div className="image-holder1">
                     <img
@@ -341,9 +339,9 @@ const handleClick = () => {
                     <div className="status">New</div>
                   </div>
                   <h4 className="royal-head">
-                    <a href="#">{property.name}</a>
+                    <a href="#">{item.name}</a>
                   </h4>
-                  <p className="price">Price: ${property.price}</p>
+                  <p className="price">Price: ${item.price}</p>
                   <div className="listing-detail">
                     <span
                       data-toggle="tooltip"
@@ -375,7 +373,7 @@ const handleClick = () => {
                     </span>
                   </div>
                   <button className="view-detail">
-                  <a href="#" onClick= {() => navigate(`/PropertyDetail`)}>View Details</a>
+                  <a href="#" onClick= {() => navigate(`/PropertyDetail/${item.id}`)}>View Details</a>
                   </button>
                 </div>
               </div>
@@ -424,7 +422,7 @@ const handleClick = () => {
                             </p>
                             <div className="price">{property.price}</div>
                             <div className="more-details">
-                            <a href="#" onClick= {() => navigate(`/PropertyDetail`)}>More Details</a>
+                            <a href="#" onClick= {() => navigate(`/PropertyDetail/${property.id}`)}>More Details</a>
                             </div>
                           </div>
                         </div>
@@ -439,6 +437,7 @@ const handleClick = () => {
   </section>
 
   <Footer />
+  {/* <PropertyDetail data={data}/>                     */}
     </>
   );
 }

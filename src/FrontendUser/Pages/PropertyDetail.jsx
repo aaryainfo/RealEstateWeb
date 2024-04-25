@@ -1,19 +1,84 @@
 import React, { useEffect, useState } from 'react'
+import { toast } from "react-toastify";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import PropertyDetailMap from "../Components/PropertyDetailMap";
 import "../Assets/CSS/Index.css";
 import "../Assets/CSS/About.css";
 import { createEnquiryList } from "../../services/enquiry.service";
+import { getPropertyWithId } from "../../services/property.service";
+import { useLocation, useNavigate,useParams } from "react-router-dom";
 
 function PropertyDetail() {
     
+const { id } = useParams();
+//Property Details State
+const [propertyName, setPropertyName] = useState("");
+const [propertyDetails, setPropertyDetails] = useState("");
+const [propertyPrice, setPropertyPrice] = useState("");
+const [propertyAddress, setPropertyAddress] = useState("");
+
+const getPropertyDetails = async () => {
+    try {
+        let payload = {};
+        const key = "id";
+        const value = id;
+        payload[key] = value;
+        const propertyDetails = await getPropertyWithId(payload);
+        const respo = await propertyDetails;
+        if (respo) {
+            setPropertyName(respo.data.name);
+            setPropertyDetails(respo.data.details);
+            setPropertyPrice(respo.data.price);
+            setPropertyAddress(respo.data.address);
+      
+      } else {
+        if (Object.values(respo.data).length > 0) {
+          toast.warn(Object.values(respo.data)[0][0]);
+        } else {
+          toast.warn(respo.message);
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+//############## PropertiesDetails ###############//
+$('.owl-carousel').owlCarousel({
+    loop: true,
+    margin: 10,
+    nav: true,
+    autoplay: true,
+    navText: [
+        "<i class='fa-solid fa-angle-left'></i>",
+        "<i class='fa-solid fa-angle-right'></i>",
+    ],
+    responsive: {
+        0: {
+            items: 1
+        },
+        600: {
+            items: 1
+        },
+        1000: {
+            items: 1
+        }
+    },
+    autoplayTimeout: 5000, // Autoplay interval in milliseconds
+    autoplayHoverPause: true, // Pause autoplay on mouse hover
+})
+
+
     const [fullName, setUserName] = useState('')
     const [email, setUserMail] = useState('')
     const [contact, setUserMobile] = useState('')
     const [message, setUserMessage] = useState('')
+    //const navigate = useNavigate()
+    //const location = useLocation()
 
     const handlePostEnquiry = async () => {
+        console.log(location, 'location');
         if (fullName, email, contact, message) {
           try {
             let formData = new FormData();
@@ -32,9 +97,9 @@ function PropertyDetail() {
         console.log(payload);    
             const postEnquiryList = await createEnquiryList(payload);
             const respo = await postEnquiryList.data;
-            if (data) {
-                toast.success("Enquiry created successfully");
-                //navigate("/admin-customers");
+            if (respo) {
+                toast.success("Enquiry submitted successfully");
+                //navigate(location.pathname);
               } else {
                if (Object.values(respo.data).length > 0) {
                 toast.warn(Object.values(respo.data)[0][0])
@@ -51,7 +116,10 @@ function PropertyDetail() {
         }
       }
 
-  
+    useEffect(() => {
+        getPropertyDetails();
+      }, [id]);
+
     useEffect(() => {
       $(function() {
   });
@@ -87,7 +155,7 @@ function PropertyDetail() {
                             <div className="row">
                                 <div className="col-lg-4 col-md-5">
                                     <div className="img1">
-                                        <img className="img-fluid" src="./Assets/Images/Hot-Properties-1.jpg" alt="Hot-Properties-1"/>
+                                        <img className="img-fluid" src="/Images/Hot-Properties-1.jpg" alt="Hot-Properties-1"/>
                                     </div>
                                 </div>
                                 <div className="col-lg-8 col-md-7">
@@ -104,7 +172,7 @@ function PropertyDetail() {
                             <div className="row">
                                 <div className="col-lg-4 col-md-5">
                                     <div className="img1">
-                                        <img className="img-fluid" src="./Assets/Images/Hot-Properties-1.jpg" alt="Hot-Properties-1"/>
+                                        <img className="img-fluid" src="/Images/Hot-Properties-1.jpg" alt="Hot-Properties-1"/>
                                     </div>
                                 </div>
                                 <div className="col-lg-8 col-md-7">
@@ -121,7 +189,7 @@ function PropertyDetail() {
                             <div className="row">
                                 <div className="col-lg-4 col-md-5">
                                     <div className="img1">
-                                        <img className="img-fluid" src="./Assets/Images/Hot-Properties-1.jpg" alt="Hot-Properties-1"/>
+                                        <img className="img-fluid" src="/Images/Hot-Properties-1.jpg" alt="Hot-Properties-1"/>
                                     </div>
                                 </div>
                                 <div className="col-lg-8 col-md-7">
@@ -140,12 +208,12 @@ function PropertyDetail() {
                             <div className="search"> Advertisements</div>
                         </div>
                         <div className="adevertise-img">
-                            <img className="img-fluid" src="./Assets/Images/advertisements.jpg" alt="advertisements"/>
+                            <img className="img-fluid" src="/Images/advertisements.jpg" alt="advertisements"/>
                         </div>
                     </div>
                 </div>
                 <div className="col-lg-9 col-md-8">
-                    <h2 className="properti-heading">2 room and 1 kitchen apartment</h2>
+                    <h2 className="properti-heading">{propertyName}</h2>
                     <div className="row gx-5">
                         <div className="col-xl-8">
                              <div className="properties-imgs">
@@ -153,16 +221,16 @@ function PropertyDetail() {
                                 <div className="owl-carousel owl-theme carousel">
 
                                     <div className="item">
-                                        <img className="proper-img" src="./Assets/Images/Propeties-img1.jpg" alt="Propeties-img1"/>
+                                        <img className="proper-img" src="/Images/Propeties-img1.jpg" alt="Propeties-img1"/>
                                     </div>
                                     <div className="item">
-                                        <img className="proper-img" src="./Assets/Images/Propeties-img2.jpg" alt="Propeties-img2"/>
+                                        <img className="proper-img" src="/Images/Propeties-img2.jpg" alt="Propeties-img2"/>
                                     </div>
                                     <div className="item">
-                                        <img className="proper-img" src="./Assets/Images/Propeties-img3.jpg" alt="Propeties-img3"/>
+                                        <img className="proper-img" src="/Images/Propeties-img3.jpg" alt="Propeties-img3"/>
                                     </div>
                                     <div className="item">
-                                        <img className="proper-img" src="./Assets/Images/Propeties-img4.jpg" alt="Propeties-img4"/>
+                                        <img className="proper-img" src="/Images/Propeties-img4.jpg" alt="Propeties-img4"/>
                                     </div>
                                     
                                 </div>
@@ -174,13 +242,9 @@ function PropertyDetail() {
                                     <i className="fa-solid fa-list"></i>
                                     <div className="search"> Properties Detail</div>
                                 </div>
-                                <p className="content">Efficiently unleash cross-media information without cross-media
-                                    value. Quickly maximize timely deliverables for real-time schemas. Dramatically
-                                    maintain clicks-and-mortar solutions without functional solutions.</p>
-                                <p className="content">Completely synergize resource sucking relationships via premier niche
-                                    markets. Professionally cultivate one-to-one customer service with robust ideas.
-                                    Dynamically innovate resource-leveling customer service for state of the art
-                                    customer service</p>
+                                <p className="content">
+                                {propertyDetails}
+                                </p>
                                 <div className="search-head">
                                     <i className="fa-solid fa-location-dot"></i>
                                     <div className="search"> Location</div>
@@ -194,10 +258,10 @@ function PropertyDetail() {
                           <div className="row add-margin">
                             <div className="col-xl-12 col-sm-6">
                                 <div className="doller-sec">
-                                    <h4 className="doller">$ 200,000,000</h4>
+                                    <h4 className="doller">{propertyPrice}</h4>
                                     <div className="area">
                                         <i className="fa-solid fa-location-dot"></i>
-                                        344 Villa, Syndey, Australia
+                                        {propertyAddress}
                                     </div>
                                 </div>
                                 <div className="agents-details">

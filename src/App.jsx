@@ -101,6 +101,7 @@ function App() {
             <Route path="/Buy" element={<Buy />} />
             <Route path="/Register" element={<Register />} />
             <Route path="/PropertyDetail" element={<PropertyDetail />} />
+            <Route path="/PropertyDetail/:id" element={<PropertyDetail />} />
           </>
         )}
 
