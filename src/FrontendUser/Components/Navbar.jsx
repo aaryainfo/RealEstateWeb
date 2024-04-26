@@ -80,7 +80,7 @@ function Navbar() {
                 <div className="pull-right">
                   <ul className="header-child-list">
                     <li>
-                      <a href="./Buy.html">BUY</a>
+                    <a href="#" onClick= {() => navigate(`/Buy`)}>BUY</a>
                     </li>
                     <li>
                       <a href="./Buy.html">SALE</a>

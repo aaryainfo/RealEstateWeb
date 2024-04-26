@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
@@ -9,7 +10,7 @@ import { createCustomerList } from "../../services/customer.service";
 
 
 function Contact() {
-
+    const navigate = useNavigate();
     const [fullName, setUserName] = useState('')
     const [email, setUserMail] = useState('')
     const [contact, setUserMobile] = useState('')
@@ -68,7 +69,7 @@ function Contact() {
 
                     <h2>Contact Us</h2>
                     <div className="subtitle">
-                        <a href="./Index.html">Home</a>
+                    <a href="#" onClick= {() => navigate(`/user-index`)}>Home</a>
                         <span> / Contact Us</span>
                     </div>
 

@@ -10,7 +10,7 @@ import { getPropertyWithId } from "../../services/property.service";
 import { useLocation, useNavigate,useParams } from "react-router-dom";
 
 function PropertyDetail() {
-    
+const navigate = useNavigate();    
 const { id } = useParams();
 //Property Details State
 const [propertyName, setPropertyName] = useState("");
@@ -135,7 +135,7 @@ $('.owl-carousel').owlCarousel({
 
                     <h2>Buy</h2>
                     <div className="subtitle">
-                        <a href="/Index.html">Home</a>
+                    <a href="#" onClick= {() => navigate(`/user-index`)}>Home</a>
                         <span> / Buy</span>
                     </div>
 
@@ -250,7 +250,7 @@ $('.owl-carousel').owlCarousel({
                                     <div className="search"> Location</div>
                                 </div>
                                 <div className="well">
-                                 {/* <PropertyDetailMap/>    */}
+                                 <PropertyDetailMap/>
                                 </div>
                             </div>
                         </div>

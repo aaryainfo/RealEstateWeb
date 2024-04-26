@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import "../Assets/CSS/Index.css";
@@ -12,8 +13,8 @@ import { useLocation } from 'react-router-dom';
 function Buy(props) {
 
     const [propertList, setPropertyListState] = useState();
-        const [propertListFiltered, setPropertyListFilteredState] = useState();
-
+    const [propertListFiltered, setPropertyListFilteredState] = useState();
+    const navigate = useNavigate();
 
     useEffect(()=> {
       getRecommendedProperties();          
@@ -104,7 +105,7 @@ const isPriceInRange = (price, priceRange) => {
 
           <h2>Buy, Sale & Rent</h2>
           <div className="subtitle">
-            <a href="./Index.html">Home</a>
+          <a href="#" onClick= {() => navigate(`/user-index`)}>Home</a>
             <span> / Buy, Sale & Rent</span>
           </div>
 
@@ -171,7 +172,7 @@ const isPriceInRange = (price, priceRange) => {
               <div className="row">
                 <div className="col-lg-4">
                   <div className="img1">
-                    <img className="img-fluid" src="./Assets/Images/Hot-Properties-1.jpg" alt="Hot-Properties-1"/>
+                    <img className="img-fluid" src="/Images/Hot-Properties-1.jpg" alt="Hot-Properties-1"/>
                   </div>
                 </div>
                 <div className="col-lg-8">
@@ -188,7 +189,7 @@ const isPriceInRange = (price, priceRange) => {
               <div className="row">
                 <div className="col-lg-4">
                   <div className="img1">
-                    <img className="img-fluid" src="./Assets/Images/Hot-Properties-1.jpg" alt="Hot-Properties-1"/>
+                    <img className="img-fluid" src="/Images/Hot-Properties-1.jpg" alt="Hot-Properties-1"/>
                   </div>
                 </div>
                 <div className="col-lg-8">
@@ -205,7 +206,7 @@ const isPriceInRange = (price, priceRange) => {
               <div className="row">
                 <div className="col-lg-4">
                   <div className="img1">
-                    <img className="img-fluid" src="./Assets/Images/Hot-Properties-1.jpg" alt="Hot-Properties-1"/>
+                    <img className="img-fluid" src="/Images/Hot-Properties-1.jpg" alt="Hot-Properties-1"/>
                   </div>
                 </div>
                 <div className="col-lg-8">
@@ -237,11 +238,11 @@ const isPriceInRange = (price, priceRange) => {
               {!!propertListFiltered && propertListFiltered.map((property) => (<div className="col-xl-4 col-sm-6">
                 <div className="properties">
                   <div className="image-holder1">
-                    <img src="./Assets/Images/Propeties-img1.jpg" alt="Propeties-img1" className="w-100"/>
+                    <img src="/Images/Propeties-img1.jpg" alt="Propeties-img1" className="w-100"/>
                  
                   </div>
                   <h4 className="royal-head">
-                    <a href="#">{property.name}</a>
+                  <a href="#" onClick= {() => navigate(`/PropertyDetail/${property.id}`)}>{property.name}</a>
                   </h4>
                   <p className="price">Price: ${property.price}</p>
                   <div className="listing-detail">
@@ -267,7 +268,7 @@ const isPriceInRange = (price, priceRange) => {
                     </span>
                   </div>
                   <button className="view-detail">
-                    <a href="./PropertyDetail.html">View Details</a>
+                  <a href="#" onClick= {() => navigate(`/PropertyDetail/${property.id}`)}>View Details</a>
                   </button>
                 </div>
               </div>

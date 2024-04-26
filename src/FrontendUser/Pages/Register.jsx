@@ -79,7 +79,7 @@ function Register() {
                 <div className="about-head">
                     <h2>Register</h2>
                     <div className="subtitle">
-                        <a href="./Index.html">Home</a>
+                    <a href="#" onClick= {() => navigate(`/user-index`)}>Home</a>
                         <span> / Register</span>
                     </div>
                 </div>

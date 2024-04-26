@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import "../Assets/CSS/Index.css";
 import "../Assets/CSS/About.css";
 
 function About() {
+  const navigate = useNavigate();
     useEffect(() => {
       $(function() {
   });
@@ -20,7 +22,7 @@ function About() {
 
           <h2>About Us</h2>
           <div className="subtitle">
-            <a href="/Index.html">Home</a>
+            <a href="#" onClick= {() => navigate(`/user-index`)}>Home</a>
             <span> / About-Us</span>
           </div>
 

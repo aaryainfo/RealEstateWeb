@@ -131,8 +131,7 @@ async function getRecommendedProperties() {
     console.log(error);
   }
 }
-
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
 const handleClick = () => {
     navigate("/Buy", { state: filter });
@@ -397,7 +396,7 @@ const handleClick = () => {
               original form, accompanied by English versions from the 1914 translation by H. Rackham.
             </div>
             <div className="learn-more">
-              <a href="./About.html">Learn More</a>
+            <a href="#" onClick= {() => navigate(`/About`)}>Learn More</a>
             </div>
           </div>
         </div>

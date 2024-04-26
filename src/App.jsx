@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Router, Routes } from "react-router-dom";
 import AdminLogin from "../Pages/Adminlogin";
 import AdminDashboard from "../Pages/AdminDashboard";
 import { ToastContainer } from "react-toastify";
-
+//import {Switch } from 'react-router-dom';
 // Blogs
 import AdminBlogs from "../Pages/BlogsPages/AdminBlogs";
 import AdminAddBlog from "../Pages/BlogsPages/AdminAddBlog";
@@ -32,6 +32,7 @@ import Contact from "./FrontendUser/Pages/Contact";
 import Buy from "./FrontendUser/Pages/Buy";
 import Register from "./FrontendUser/Pages/Register";
 import PropertyDetail from "./FrontendUser/Pages/PropertyDetail";
+import BlogDetail from "./FrontendUser/Pages/BlogDetail";
 // added comment
 
 function App() {
@@ -102,6 +103,13 @@ function App() {
             <Route path="/Register" element={<Register />} />
             <Route path="/PropertyDetail" element={<PropertyDetail />} />
             <Route path="/PropertyDetail/:id" element={<PropertyDetail />} />
+            <Route path="/BlogDetail/:id" element={<BlogDetail />} />
+            {/* <Router>
+            <Switch>
+              <Route path="/BlogDetail/:id" component={BlogDetail} />
+            </Switch>
+          </Router> */}
+                
           </>
         )}
 

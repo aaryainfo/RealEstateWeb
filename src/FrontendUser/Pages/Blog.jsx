@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getBlogList1 } from "../../services/admin-auth.service";
@@ -7,6 +8,7 @@ import "../Assets/CSS/About.css";
 
 function Blog() {
     const [blogList, setBlogListState] = useState([]);
+    const navigate = useNavigate();
     useEffect(() => {
       $(function() {
         getBlogList();
@@ -23,11 +25,11 @@ function Blog() {
         console.log("blog List", data);
         setBlogListState(data);
       } else {
-        // if (Object.values(data.data).length > 0) {
-        //     toast.warn(Object.values(data.data)[0][0])
-        // } else {
-        //     toast.warn(data.message)
-        // }
+        if (Object.values(data.data).length > 0) {
+            toast.warn(Object.values(data.data)[0][0])
+        } else {
+            toast.warn(data.message)
+        }
       }
     } catch (error) {
       console.log(error);
@@ -49,7 +51,7 @@ const formatDate = (dateString) => {
 
                     <h2>Blogs</h2>
                     <div className="subtitle">
-                        <a href="/Index.html">Home</a>
+                    <a href="#" onClick= {() => navigate(`/user-index`)}>Home</a>
                         <span> / Blogs</span>
                     </div>
 
@@ -62,25 +64,25 @@ const formatDate = (dateString) => {
             <div className="takover-market">
                 <div className="row">
                     <div className="col-xl-8 col-md-12">
-                        {blogList.map((property) => (
+                        {blogList.map((item) => (
                      
-                        <div key={property.id} className="market-section">
+                        <div key={item.id} className="market-section">
                             <div className="row">
                                 <div className="col-md-4">
                                     <img src="/Images/market-1.jpg" alt="market-1" className="img-fluid market-img w-100"/>
                                 </div>
                                 <div className="col-md-8">
                                     <h2 className="creative-bisuness">
-                                     <a href="./BlogDetail.html">{property.title}</a>
+                                    <a href="#" onClick= {() => navigate(`/BlogDetail/${item.id}`)}>{item.title}</a>
                                     </h2>
                                     <div className="info">
-                                        Posted on: {formatDate(property.createdAt)}
+                                        Posted on: {formatDate(item.createdAt)}
                                     </div>
                                     <p className="content">
-                                    {property.content}
+                                    {item.content}
                                     </p>
                                     <button className="read-btn">
-                                        <a href="./BlogDetail.html">Read More</a>
+                                    <a href="#" onClick= {() => navigate(`/BlogDetail/${item.id}`)}>Read More</a>
                                     </button>
                                 </div>
                             </div>
@@ -112,38 +114,6 @@ const formatDate = (dateString) => {
                                     </div>
                                 </div>
                                 ))} 
-
-                                {/* <div className="tab-pane fade show active" id="pills-home" role="tabpanel"
-                                    aria-labelledby="pills-home-tab" tabIndex="0">
-                                    <h5 className="real-head">Real estate marketing growing</h5>
-                                    <div className="info">
-                                        Posted on: Jan 20, 2013
-                                    </div>
-                                    <h5 className="real-head">Real estate marketing growing</h5>
-                                    <div className="info add-bt">
-                                        Posted on: Jan 20, 2013
-                                    </div>
-                                    <h5 className="real-head">Real estate marketing growing</h5>
-                                    <div className="info add-bt">
-                                        Posted on: Jan 20, 2013
-                                    </div>
-                                </div>
-                                <div className="tab-pane fade" id="pills-profile" role="tabpanel"
-                                    aria-labelledby="pills-profile-tab" tabIndex="0">
-                                    <h5 className="real-head">Market update on new apartments</h5>
-                                    <div className="info">
-                                        Posted on: Jan 20, 2013
-                                    </div>
-                                    <h5 className="real-head">Market update on new apartments</h5>
-                                    <div className="info add-bt">
-                                        Posted on: Jan 20, 2013
-                                    </div>
-                                    <h5 className="real-head">Market update on new apartments</h5>
-                                    <div className="info add-bt">
-                                        Posted on: Jan 20, 2013
-                                    </div>
-                                </div> */}
-                            
                             </div>
                         </div>
                     </div>
